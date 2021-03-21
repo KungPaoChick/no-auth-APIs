@@ -3,12 +3,14 @@ import json
 import csv
 
 
-def get_api():
-    with requests.get('https://api.publicapis.org/entries') as response:
+def get_api(link):
+    with requests.get(link) as response:
         source = json.loads(response.text)
 
     with open('public-api.json', 'w') as f_source:
         json.dump(source, f_source, indent=2)
+
+    return no_auth_apis()
 
 
 def no_auth_apis():
@@ -32,5 +34,5 @@ def no_auth_apis():
 
 
 if __name__ == '__main__':
-    get_api()
-    no_auth_apis()
+    get_api('https://api.publicapis.org/entries')
+    
